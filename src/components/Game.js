@@ -23,7 +23,7 @@ export default function Game() {
   const [loaded, setLoaded] = useState(false);
   const [started, setStarted] = useState(false);
   const [items, setItems] = useState(null);
-  const [date, setdate] = useState(null)
+  const [date, setdate] = useState(localStorage.getItem("date")?localStorage.getItem("date"):"null")
   const [playedToday, setPlayedToday] = useState(today===localStorage.getItem("date")?true:false)
   const [questions, setQuestions] = useState(null);
   const [countries, setCountries] = useState(new Set(['United States', 'China', 'United Kingdom', 'Germany', 'Canada', 'India', 'Japan', 'France', 'Russia', 'Italy', 'Switzerland', 'Spain', 'Sweden', 'Netherlands', 'Israel', 'United Arab Emirates', 'Saudi Arabia', 'Belgium', 'Thailand', 'Pakistan', 'Iran', 'Portugal', 'South Korea']));
@@ -62,7 +62,7 @@ export default function Game() {
       }
     }
     const fetchGameData = async () => {
-      setdate(localStorage.getItem("date")?localStorage.getItem("date"):"null")
+      //setdate(localStorage.getItem("date")?localStorage.getItem("date"):"null")
       const res = await axios.get(
         "https://wikitrivia-data.tomjwatson.com/items.json"
       );
