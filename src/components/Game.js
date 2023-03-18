@@ -10,7 +10,7 @@ import Instructions from "./Instructions";
 //import badCards from "../lib/bad-cards";
 import supabase from "./config/supabaseClient"
 import DropDown from "./DropDown";
-import Hist from "./Hist";
+
 import Canva from "./Canva";
 
 export default function Game() {
@@ -28,6 +28,7 @@ export default function Game() {
   const [questions, setQuestions] = useState(null);
   const [countries, setCountries] = useState(new Set(['United States', 'China', 'United Kingdom', 'Germany', 'Canada', 'India', 'Japan', 'France', 'Russia', 'Italy', 'Switzerland', 'Spain', 'Sweden', 'Netherlands', 'Israel', 'United Arab Emirates', 'Saudi Arabia', 'Belgium', 'Thailand', 'Pakistan', 'Iran', 'Portugal', 'South Korea']));
   //const suffList = ['%','Billion gallons','Fahrenheit','GW.h','Gigawatt-hours','MW','Megawatt-hours','Million units','Terawatt-hours','billion tons','cm','cycles','degree celcius','degree celsius','degree fahrenheit','females','houses','inches','kilo metres','km square','metres','micrograms per cubic metre','million litres','million terajoules','mm','people','thousand tons','tons','years']
+  // eslint-disable-next-line
   useEffect(() => {
     setdate(localStorage.getItem("date")?localStorage.getItem("date"):"null")
     console.log(localStorage.getItem("date"))
@@ -81,7 +82,7 @@ export default function Game() {
 
     fetchGameData();
     fetchQuestion();
-  }, []);
+  });
 
   useEffect(() => {
     const createStateAsync = async() => {
@@ -163,10 +164,10 @@ export default function Game() {
     console.log("year",today);
     localStorage.setItem("date",today);
     setdate(today);
-  })
+  },[])
   const updatePlayed = useCallback(()=>{
     setPlayedToday(true);
-  })
+  },[])
   if (!loaded || state === null) {
     return <Loading />;
   }

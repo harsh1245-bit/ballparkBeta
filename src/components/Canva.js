@@ -1,7 +1,7 @@
-import React, { Component,useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CanvasJSReact from './canvasjs.react';
 import supabase from "./config/supabaseClient"
-var CanvasJS = CanvasJSReact.CanvasJS;
+//var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 var today = new Date();
@@ -14,8 +14,11 @@ export default function Canva() {
     useEffect(()=>{
         const fetchScores = async()=>{
             //console.log("yeaaaa")
-            const {data,error} =  await supabase.
-            from('userData').select('*').eq('id',today);
+            const {data,error} =  await supabase.from('userData').select('*').eq('id',today);
+
+            if(error){
+
+            }
             //console.log(data,error)
             const x = data[0].scores;
             

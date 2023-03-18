@@ -20,10 +20,7 @@ export default function Board(props) {
     navigator.vibrate(20);
   }
   async function updateSupbaseScores(x,today){
-    const {data,error} = await supabase.from('userData').
-    update({scores:x}).
-    eq('id',today).
-    select()
+    const {data,error} = await supabase.from('userData').update({scores:x}).eq('id',today).select()
     console.log(data,error);
   }
   async function onDragEnd(result) {
@@ -98,7 +95,7 @@ export default function Board(props) {
       var mm = String(today.getMonth()+1).padStart(2,'0');
       var yyyy = today.getFullYear();
       today = mm+'/'+dd+'/'+yyyy;
-      localStorage.setItem("date",today)
+      localStorage.setItem("date",today);
       let {data, error} = await supabase
       .from('userData')
       .select('*').eq('id',today);
@@ -113,6 +110,7 @@ export default function Board(props) {
           const {data, error} =  supabase
           .from('userData')
           .insert({id: today})
+          console.log(data,error)
           
         }
         else{
