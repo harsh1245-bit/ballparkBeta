@@ -108,7 +108,7 @@ export default function Canva() {
      }
 		return (
 		<div>
-            {showPercentile?(<div style={{color:'white'}}>Your last percentile was {percentile}</div>):(<>You did not play yesterday</>)}
+            {showPercentile?(<div style={{color:'white'}}>Your last percentile was {percentile}</div>):(<div style={{color:"white"}}>You did not play yesterday</div>)}
 			<CanvasJSChart options = {options}
 				/* onRef={ref => this.chart = ref} */
 			/>
