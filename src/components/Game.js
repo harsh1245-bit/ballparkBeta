@@ -172,7 +172,7 @@ export default function Game() {
   if (!loaded || state === null) {
     return <Loading />;
   }
-  if(playedToday){
+  if(!playedToday){
     return(
       <>
       <GameOver
