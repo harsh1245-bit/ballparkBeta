@@ -5,12 +5,18 @@ import supabase from "./config/supabaseClient"
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 var today = new Date();
+today.setDate(today.getDate()-1);
   var dd = String(today.getDate()).padStart(2,'0');
   var mm = String(today.getMonth()+1).padStart(2,'0');
   var yyyy = today.getFullYear();
   today = mm+'/'+dd+'/'+yyyy;
 export default function Canva() {
     const [histData,setHistData] = useState(new Array(20).fill(false));
+    // eslint-disable-next-line
+    const [showPercentile, setShowPercentile] = useState(today===localStorage.getItem("lastPlayedDate")?true:false)
+    // eslint-disable-next-line
+    const [lastScore, setLastScore] = useState(localStorage.getItem("lastPlayedScore")?localStorage.getItem("lastPlayedScore"):null)
+    const [percentile,setPercentile] = useState(0)
     useEffect(()=>{
         const fetchScores = async()=>{
             //console.log("yeaaaa")
@@ -23,10 +29,36 @@ export default function Canva() {
             const x = data[0].scores;
             
             setHistData(x);
+            //localStorage.setItem("lastPlayedDate","03/17/2023")
+            //localStorage.setItem("lastPlayedScore",3);
             //console.log("data",histData)
         }
+        const percentil = (arr,val)=>{
+            let count = 0;
+            var x = []
+            for(let i=0; i<arr.length; i++){
+                for(let j=0; j<arr[i]; j++){
+                    x.push(i);
+                }
+            }
+            x.forEach(v=>{
+                if(v<val){
+                    count++;
+                } else if(v===val){
+                    count+=0.5;
+                }
+            });
+            setPercentile(100*count/x.length);
+            console.log(percentile)
+
+            
+        }
         fetchScores();
-    })
+        if(showPercentile){
+            percentil(histData,localStorage.getItem("lastPlayedScore"));
+        }
+        // eslint-disable-next-line
+    },[])
 	
     const options = {
         animationEnabled: true,
@@ -76,6 +108,7 @@ export default function Canva() {
      }
 		return (
 		<div>
+            {showPercentile?(<div style={{color:'white'}}>Your last percentile was {percentile}</div>):(<>You did not play yesterday</>)}
 			<CanvasJSChart options = {options}
 				/* onRef={ref => this.chart = ref} */
 			/>

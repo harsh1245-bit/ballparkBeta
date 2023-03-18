@@ -18,7 +18,7 @@ export function getRandomItem(deck, played) {
     answer: "bye",
   }
   
-  console.log(deck,"deck");
+  //console.log(deck,"deck");
   const candidates = deck.filter((candidate) => {
     if (tooClose(candidate, played)) {
       return false;
@@ -30,7 +30,7 @@ export function getRandomItem(deck, played) {
 
   if (candidates.length > 0) {
     const quest = candidates[Math.floor(Math.random() * candidates.length)] 
-    console.log("ye chala")
+    //console.log("ye chala")
     return quest;
   }
   //const quest = deck[Math.floor(Math.random() * deck.length)];

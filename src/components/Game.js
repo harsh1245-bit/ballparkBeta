@@ -15,6 +15,7 @@ import Canva from "./Canva";
 
 export default function Game() {
   var today = new Date();
+  //today.setDate(today.getDate()-1);
   var dd = String(today.getDate()).padStart(2,'0');
   var mm = String(today.getMonth()+1).padStart(2,'0');
   var yyyy = today.getFullYear();
@@ -31,13 +32,13 @@ export default function Game() {
  
   useEffect(() => {
     //setdate(localStorage.getItem("date")?localStorage.getItem("date"):"null")
-    console.log(localStorage.getItem("date"))
+    /*console.log(localStorage.getItem("date"))
     console.log(date);
-    console.log(playedToday);
+    console.log(playedToday);*/
     const fetchQuestion= async ()=>{
       const suffs = ['people', '%', 'US $', 'tonnes', 'years','kWh/person']
       const tag = suffs[Math.floor(Math.random()*suffs.length)]
-      console.log(tag);
+      //console.log(tag);
       const {data, error} = await supabase
       .from('ourWorld')
       .select('*').eq('suffix',tag);
@@ -83,14 +84,14 @@ export default function Game() {
 
     fetchGameData();
     fetchQuestion();
-  });
+  },[]);
 
   useEffect(() => {
     const createStateAsync = async() => {
       if (items !== null) {
         setState(await createState(questions));
         setLoaded(true);
-        console.log("working")
+        //console.log("working")
       }
     };
     
@@ -98,8 +99,8 @@ export default function Game() {
   
     
     
-    // eslint-disable-next-line
-  }, [questions]);
+    
+  }, [questions,items]);
   const startGame = ()=>{
     const arr = []
     let x = 0;
@@ -127,7 +128,7 @@ export default function Game() {
         }
       }
       setQuestions(arr);
-      console.log(questions);
+      console.log(questions.length);
     }
     setStarted(true);
   }
@@ -140,8 +141,8 @@ export default function Game() {
     };
 
     resetGameAsync();
-    // eslint-disable-next-line
-  }, [questions]);
+    
+  }, [questions,items]);
   
   const [highscore, setHighscore] = useState(
     Number(localStorage.getItem("highscore") ?? "0")
@@ -150,8 +151,8 @@ export default function Game() {
   const updateCountries = useCallback((countrySet)=>{
     setCountries(countrySet);
     console.log(countries)
-    // eslint-disable-next-line
-  },[])
+    
+  },[countries])
   const updateHighscore = useCallback((score) => {
     localStorage.setItem("highscore", String(score));
     setHighscore(score);
@@ -172,16 +173,16 @@ export default function Game() {
   if (!loaded || state === null) {
     return <Loading />;
   }
-  if(!playedToday){
+  if(playedToday){
     return(
       <>
       <GameOver
       highscore={highscore}
       resetGame={resetGame}
       score={3}
-      date={date}
+      //date={date}
             />
-      <div style={{"margin-left":"auto","margin-right":"auto", "margin-top":"10px",width:"70%"}}><Canva/></div>
+      <div style={{marginLeft:"auto",marginRight:"auto", marginTop:"10px",width:"70%"}}><Canva/></div>
       
       
       </>

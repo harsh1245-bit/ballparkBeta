@@ -11,7 +11,10 @@ import Hearts from "./Hearts";
 import GameOver from "./Game-over";
 
 export default function Board(props) {
-  const { highscore, resetGame, state, setState, updateHighscore, date, updatedate,updatePlayed} = props;
+  // eslint-disable-next-line
+  const { highscore, resetGame, state, setState, updateHighscore,date
+      ,updatedate 
+      ,updatePlayed} = props;
 
   const [isDragging, setIsDragging] = useState(false);
   
@@ -89,13 +92,16 @@ export default function Board(props) {
       });
     }
     if(state.lives===0){
-      //updatedate();
+
+      updatedate();
       var today = new Date();
       var dd = String(today.getDate()).padStart(2,'0');
       var mm = String(today.getMonth()+1).padStart(2,'0');
       var yyyy = today.getFullYear();
       today = mm+'/'+dd+'/'+yyyy;
       localStorage.setItem("date",today);
+      localStorage.setItem("lastPlayedDate",today);
+      localStorage.setItem("lastPlayedScore",score);
       let {data, error} = await supabase
       .from('userData')
       .select('*').eq('id',today);
@@ -170,7 +176,6 @@ export default function Board(props) {
               highscore={highscore}
               resetGame={resetGame}
               score={score}
-              date={date}
             />
           )}
         </div>

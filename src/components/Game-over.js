@@ -18,7 +18,7 @@ function getMedal(score) {
 }
 
 export default function GameOver(props) {
-  const { highscore, resetGame, score ,date} = props;
+  const { highscore, resetGame, score } = props;
 
   const animProps = useSpring({
     opacity: 1,
@@ -42,7 +42,7 @@ export default function GameOver(props) {
 
   return (
     <animated.div style={animProps} className={styles.gameOver}>
-      <div style={{color:"white"}}>{date}</div>
+      
       <div className={styles.scoresWrapper}>
         <div className={styles.score}>
           <Score score={score} title="Streak" />
