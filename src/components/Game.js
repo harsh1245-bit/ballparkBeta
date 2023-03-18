@@ -28,9 +28,9 @@ export default function Game() {
   const [questions, setQuestions] = useState(null);
   const [countries, setCountries] = useState(new Set(['United States', 'China', 'United Kingdom', 'Germany', 'Canada', 'India', 'Japan', 'France', 'Russia', 'Italy', 'Switzerland', 'Spain', 'Sweden', 'Netherlands', 'Israel', 'United Arab Emirates', 'Saudi Arabia', 'Belgium', 'Thailand', 'Pakistan', 'Iran', 'Portugal', 'South Korea']));
   //const suffList = ['%','Billion gallons','Fahrenheit','GW.h','Gigawatt-hours','MW','Megawatt-hours','Million units','Terawatt-hours','billion tons','cm','cycles','degree celcius','degree celsius','degree fahrenheit','females','houses','inches','kilo metres','km square','metres','micrograms per cubic metre','million litres','million terajoules','mm','people','thousand tons','tons','years']
-  // eslint-disable-next-line
+ 
   useEffect(() => {
-    setdate(localStorage.getItem("date")?localStorage.getItem("date"):"null")
+    //setdate(localStorage.getItem("date")?localStorage.getItem("date"):"null")
     console.log(localStorage.getItem("date"))
     console.log(date);
     console.log(playedToday);
@@ -62,6 +62,7 @@ export default function Game() {
       }
     }
     const fetchGameData = async () => {
+      setdate(localStorage.getItem("date")?localStorage.getItem("date"):"null")
       const res = await axios.get(
         "https://wikitrivia-data.tomjwatson.com/items.json"
       );
