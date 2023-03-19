@@ -22,6 +22,10 @@ export default function Board(props) {
     setIsDragging(true);
     navigator.vibrate(20);
   }
+  async function createRow(today){
+    const {data,error} = await supabase.from('userData').insert({id:today}).select()
+    console.log(data,error);
+  }
   async function updateSupbaseScores(x,today){
     const {data,error} = await supabase.from('userData').update({scores:x}).eq('id',today).select()
     console.log(data,error);
@@ -99,6 +103,19 @@ export default function Board(props) {
       var mm = String(today.getMonth()+1).padStart(2,'0');
       var yyyy = today.getFullYear();
       today = mm+'/'+dd+'/'+yyyy;
+      var yesterday = new Date();
+      yesterday.setDate(yesterday.getDate()-1);
+      var dd = String(yesterday.getDate()).padStart(2,'0');
+      var mm = String(yesterday.getMonth()+1).padStart(2,'0');
+      var yyyy = yesterday.getFullYear();
+      yesterday = mm+'/'+dd+'/'+yyyy;
+      if(yesterday===localStorage.getItem("lastPlayedDate")){
+        localStorage.setItem("playedYesterday",true)
+        localStorage.setItem("yesterdayScore",localStorage.getItem("lastPlayedScore"))
+      }
+      if(yesterday!==localStorage.getItem("lastPlayedDate")){
+        localStorage.setItem("playedYesterday",false)
+      }
       localStorage.setItem("date",today);
       localStorage.setItem("lastPlayedDate",today);
       localStorage.setItem("lastPlayedScore",score);
@@ -110,13 +127,11 @@ export default function Board(props) {
           console.log("error")
       }
       if(data){
-        console.log(data);
+        console.log("data",data);
         if(data.length===0){
           console.log("this working")
-          const {data, error} =  supabase
-          .from('userData')
-          .insert({id: today})
-          console.log(data,error)
+          createRow(today);
+
           
         }
         else{

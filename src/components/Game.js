@@ -176,10 +176,11 @@ export default function Game() {
   if(playedToday){
     return(
       <>
+      <h1 style={{color:"white"}}>Today's Score</h1>
       <GameOver
       highscore={highscore}
       resetGame={resetGame}
-      score={3}
+      score={localStorage.getItem("lastPlayedScore")}
       //date={date}
             />
       <div style={{marginLeft:"auto",marginRight:"auto", marginTop:"10px",width:"70%"}}><Canva/></div>

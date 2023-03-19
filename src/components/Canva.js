@@ -13,9 +13,9 @@ today.setDate(today.getDate()-1);
 export default function Canva() {
     const [histData,setHistData] = useState(new Array(20).fill(false));
     // eslint-disable-next-line
-    const [showPercentile, setShowPercentile] = useState(today===localStorage.getItem("lastPlayedDate")?true:false)
+    const [showPercentile, setShowPercentile] = useState(localStorage.getItem("playedYesterday")?localStorage.getItem("playedYesterday"):null)
     // eslint-disable-next-line
-    const [lastScore, setLastScore] = useState(localStorage.getItem("lastPlayedScore")?localStorage.getItem("lastPlayedScore"):null)
+    const [lastScore, setLastScore] = useState(localStorage.getItem("yesterdayScore")?localStorage.getItem("yesterdayScore"):null)
     const [percentile,setPercentile] = useState(0)
     useEffect(()=>{
         const fetchScores = async()=>{
@@ -34,6 +34,7 @@ export default function Canva() {
             //console.log("data",histData)
         }
         const percentil = (arr,val)=>{
+            console.log(val,arr)
             let count = 0;
             var x = []
             for(let i=0; i<arr.length; i++){
@@ -48,7 +49,7 @@ export default function Canva() {
                     count+=0.5;
                 }
             });
-            setPercentile(100*count/x.length);
+            setPercentile((100*count/x.length).toFixed(2));
             console.log(percentile)
 
             
@@ -108,7 +109,7 @@ export default function Canva() {
      }
 		return (
 		<div>
-            {showPercentile?(<div style={{color:'white'}}>Your last percentile was {percentile}</div>):(<div style={{color:"white"}}>You did not play yesterday</div>)}
+            {showPercentile?(<div style={{color:'white'}}>Yesterday, your score was {localStorage.getItem("yesterdayScore")} and your percentile score was {percentile}</div>):(<div style={{color:"white"}}>You did not play yesterday</div>)}
 			<CanvasJSChart options = {options}
 				/* onRef={ref => this.chart = ref} */
 			/>
