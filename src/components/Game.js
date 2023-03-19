@@ -218,7 +218,9 @@ export default function Game() {
   }
 
   return (
-    <Board
+    <>
+    {loaded?(
+      <Board
       highscore={highscore}
       state={state}
       setState={setState}
@@ -228,5 +230,11 @@ export default function Game() {
       updatedate = {updatedate}
       updatePlayed = {updatePlayed}
     />
+    ):
+  (
+    <Loading/>
+  )
+  }
+    </>
   );
 }

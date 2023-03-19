@@ -17,6 +17,7 @@ export default function Board(props) {
       ,updatePlayed} = props;
 
   const [isDragging, setIsDragging] = useState(false);
+  const [count,setCount] =useState(0);
   
   async function onDragStart() {
     setIsDragging(true);
@@ -32,7 +33,8 @@ export default function Board(props) {
   }
   async function onDragEnd(result) {
     setIsDragging(false);
-
+    setCount(count+1);
+    console.log(count);
     const { source, destination } = result;
 
     if (
@@ -95,7 +97,8 @@ export default function Board(props) {
         badlyPlaced: null,
       });
     }
-    if(state.lives===0){
+    console.log(state.played.length);
+    if(state.played.length===21){
 
       updatedate();
       var today = new Date();
@@ -181,8 +184,8 @@ export default function Board(props) {
     >
       <div className={styles.wrapper}>
         <div className={styles.top}>
-          <Hearts lives={state.lives} />
-          {state.lives > 0 ? (
+          
+          {state.played.length<21 ? (
             <>
               <NextItemList next={state.next} />
             </>
