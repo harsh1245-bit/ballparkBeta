@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { animated, useSpring } from "react-spring";
 import CanvasJSReact from './canvasjs.react';
 import supabase from "./config/supabaseClient"
-import styles from "../styles/game-over.module.scss";
+import styles from "../styles/canva.module.scss";
 
 import Score from "./Score";
 //var CanvasJS = CanvasJSReact.CanvasJS;
@@ -160,7 +160,7 @@ export default function Canva() {
                     </div>
                     </animated.div>
                 </div>
-                ):(<div style={{color:"white"}}>You did not play yesterday</div>)}</>
+                ):(<div style={{color:"white"}}><h3>You did not play yesterday</h3></div>)}</>
             ):(<div style={{color:"white"}}>Loading yesterdays's score.</div>)}
 			<CanvasJSChart options = {options}
 				/* onRef={ref => this.chart = ref} */
