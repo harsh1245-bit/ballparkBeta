@@ -128,9 +128,30 @@ export default function Game() {
         }
       }
       setQuestions(arr);
+
+      pickRandomques(arr,today);
       console.log(questions.length);
     }
     setStarted(true);
+  }
+  const setRandomques=async(arr,today)=>{
+    const copiedArray = arr.slice();
+    const shuffled = copiedArray.sort(()=>0.5-Math.random());
+
+    const {data,error} = await supabase.from('dailyQues').insert({"id":today,"ques":shuffled.slice(0,21)}).select()
+    console.log(data,error);
+    setQuestions(data);
+  }
+  
+  const pickRandomques=async(arr,today)=>{
+    const {data,error} = await supabase.from("dailyQues").select('*').eq("id",today);
+    console.log("data",data)
+    if(data.length===0){
+      setRandomques(arr,today)
+    }
+    else{
+      setQuestions(data[0]);
+    }
   }
   const resetGame = useCallback(() => {
     const resetGameAsync = async () => {
