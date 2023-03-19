@@ -105,9 +105,9 @@ export default function Board(props) {
       today = mm+'/'+dd+'/'+yyyy;
       var yesterday = new Date();
       yesterday.setDate(yesterday.getDate()-1);
-      var dd = String(yesterday.getDate()).padStart(2,'0');
-      var mm = String(yesterday.getMonth()+1).padStart(2,'0');
-      var yyyy = yesterday.getFullYear();
+       dd = String(yesterday.getDate()).padStart(2,'0');
+       mm = String(yesterday.getMonth()+1).padStart(2,'0');
+       yyyy = yesterday.getFullYear();
       yesterday = mm+'/'+dd+'/'+yyyy;
       if(yesterday===localStorage.getItem("lastPlayedDate")){
         localStorage.setItem("playedYesterday",true)
