@@ -148,7 +148,7 @@ export default function Canva() {
                 <>{showPercentile?(
                 <div>
                     <animated.div style={animProps} className={styles.gameOver}>
-                    <h1 style={{color:"white", display:"block"}}>Yesterday's score</h1>
+                    <h3 style={{color:"white", display:"block"}}>Yesterday's score</h3>
                     <div className={styles.scoresWrapper}>
                 
                         <div className={styles.score}>
