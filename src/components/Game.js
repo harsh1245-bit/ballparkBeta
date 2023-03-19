@@ -150,7 +150,9 @@ export default function Game() {
       setRandomques(arr,today)
     }
     else{
-      setQuestions(data[0]);
+      setLoaded(false);
+      setQuestions(data[0].ques);
+      setLoaded(true);
     }
   }
   const resetGame = useCallback(() => {
