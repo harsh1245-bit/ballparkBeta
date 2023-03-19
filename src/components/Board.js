@@ -7,7 +7,7 @@ import { checkCorrect, preloadImage, getRandomItem } from "../lib/items";
 import NextItemList from "./next-item-list";
 import PlayedItemList from "./played-item-list";
 import styles from "../styles/board.module.scss";
-import Hearts from "./Hearts";
+//import Hearts from "./Hearts";
 import GameOver from "./Game-over";
 
 export default function Board(props) {
