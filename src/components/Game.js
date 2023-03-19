@@ -145,7 +145,7 @@ export default function Game() {
   
   const pickRandomques=async(arr,today)=>{
     const {data,error} = await supabase.from("dailyQues").select('*').eq("id",today);
-    console.log("data",data)
+    console.log("data",data,error)
     if(data.length===0){
       setRandomques(arr,today)
     }
