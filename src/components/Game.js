@@ -176,7 +176,7 @@ export default function Game() {
   if(playedToday){
     return(
       <>
-      <h1 style={{color:"white"}}>Today's Score</h1>
+      <h5 style={{color:"white"}}>Today's Score</h5>
       <GameOver
       highscore={highscore}
       resetGame={resetGame}

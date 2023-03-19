@@ -13,7 +13,7 @@ today.setDate(today.getDate()-1);
 export default function Canva() {
     const [histData,setHistData] = useState(new Array(20).fill(false));
     // eslint-disable-next-line
-    const [showPercentile, setShowPercentile] = useState(localStorage.getItem("playedYesterday")?localStorage.getItem("playedYesterday"):null)
+    const [showPercentile, setShowPercentile] = useState(null)
     // eslint-disable-next-line
     const [lastScore, setLastScore] = useState(localStorage.getItem("yesterdayScore")?localStorage.getItem("yesterdayScore"):null)
     const [percentile,setPercentile] = useState(0)
@@ -34,8 +34,16 @@ export default function Canva() {
             //localStorage.setItem("lastPlayedDate","03/17/2023")
             //localStorage.setItem("lastPlayedScore",3);
             //console.log("data",histData)
-            if(showPercentile){
-                percentil(x,localStorage.getItem("lastPlayedScore"));
+            if(localStorage.getItem("playedYesterday")==="true"){
+                setShowPercentile(true);
+                console.log("true working")
+            }
+            if(localStorage.getItem("playedYesterday")==="false"){
+                setShowPercentile(false);
+                console.log("false working");
+            }
+            if(localStorage.getItem("playedYesterday")==="true"){
+                percentil(x,lastScore);
                 console.log("working");
             }
         }
