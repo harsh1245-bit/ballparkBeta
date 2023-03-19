@@ -87,7 +87,7 @@ export default function Canva() {
         theme: "light2",
 
         title: {
-          text: "Scores distribution of last day"
+          text: "Scores on "+String(today)
         },
         axisX:{
             title: "Scores",
@@ -131,7 +131,7 @@ export default function Canva() {
 		return (
 		<div>
             <animated.div style={animProps} className={styles.gameOver}>
-            <h1 style={{color:"white", display:"block"}}>Today's score</h1>
+            <h2 style={{color:"white", display:"block"}}>Today's score</h2>
 
             <div className={styles.scoresWrapper}>
                 
@@ -148,7 +148,7 @@ export default function Canva() {
                 <>{showPercentile?(
                 <div>
                     <animated.div style={animProps} className={styles.gameOver}>
-                    <h3 style={{color:"white", display:"block"}}>Yesterday's score</h3>
+                    <h2 style={{color:"white", display:"block"}}>Yesterday's score</h2>
                     <div className={styles.scoresWrapper}>
                 
                         <div className={styles.score}>
