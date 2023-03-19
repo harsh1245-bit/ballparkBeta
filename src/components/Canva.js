@@ -17,10 +17,11 @@ export default function Canva() {
     // eslint-disable-next-line
     const [lastScore, setLastScore] = useState(localStorage.getItem("yesterdayScore")?localStorage.getItem("yesterdayScore"):null)
     const [percentile,setPercentile] = useState(0)
+    const [loadingScore,setloadingScore] = useState(false)
     useEffect(()=>{
         const fetchScores = async()=>{
             //console.log("yeaaaa")
-            const {data,error} =  await supabase.from('userData').select('*').eq('id',today);
+            const {data,error} = await supabase.from('userData').select('*').eq('id',today);
 
             if(error){
 
@@ -29,9 +30,14 @@ export default function Canva() {
             const x = data[0].scores;
             
             setHistData(x);
+            setloadingScore(true);
             //localStorage.setItem("lastPlayedDate","03/17/2023")
             //localStorage.setItem("lastPlayedScore",3);
             //console.log("data",histData)
+            if(showPercentile){
+                percentil(x,localStorage.getItem("lastPlayedScore"));
+                console.log("working");
+            }
         }
         const percentil = (arr,val)=>{
             console.log(val,arr)
@@ -55,9 +61,7 @@ export default function Canva() {
             
         }
         fetchScores();
-        if(showPercentile){
-            percentil(histData,localStorage.getItem("lastPlayedScore"));
-        }
+        
         // eslint-disable-next-line
     },[])
 	
@@ -109,7 +113,9 @@ export default function Canva() {
      }
 		return (
 		<div>
-            {showPercentile?(<div style={{color:'white'}}>Yesterday, your score was {localStorage.getItem("yesterdayScore")} and your percentile score was {percentile}</div>):(<div style={{color:"white"}}>You did not play yesterday</div>)}
+            {loadingScore?(
+                <>{showPercentile?(<div style={{color:'white'}}>Yesterday, your score was {localStorage.getItem("yesterdayScore")} and your percentile score was {percentile}</div>):(<div style={{color:"white"}}>You did not play yesterday</div>)}</>
+            ):(<div style={{color:"white"}}>Loading yesterdays's score.</div>)}
 			<CanvasJSChart options = {options}
 				/* onRef={ref => this.chart = ref} */
 			/>
