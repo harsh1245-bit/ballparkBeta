@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import GameOver from "./Game-over";
+
 //import { GameState } from "../types/game";
 //import { Item } from "../types/item";
 import createState from "../lib/create-state";
