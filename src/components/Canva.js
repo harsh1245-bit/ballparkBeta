@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { animated, useSpring } from "react-spring";
 import CanvasJSReact from './canvasjs.react';
 import supabase from "./config/supabaseClient"
+import styles from "../styles/game-over.module.scss";
+
+import Score from "./Score";
 //var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -18,6 +22,11 @@ export default function Canva() {
     const [lastScore, setLastScore] = useState(localStorage.getItem("yesterdayScore")?localStorage.getItem("yesterdayScore"):null)
     const [percentile,setPercentile] = useState(0)
     const [loadingScore,setloadingScore] = useState(false)
+    const animProps = useSpring({
+        opacity: 1,
+        from: { opacity: 0 },
+        config: { duration: 500 },
+      });
     useEffect(()=>{
         const fetchScores = async()=>{
             //console.log("yeaaaa")
@@ -121,8 +130,37 @@ export default function Canva() {
      }
 		return (
 		<div>
+            <animated.div style={animProps} className={styles.gameOver}>
+            <h1 style={{color:"white", display:"block"}}>Today's score</h1>
+
+            <div className={styles.scoresWrapper}>
+                
+                <div className={styles.score}>
+                <Score score={localStorage.getItem("lastPlayedScore")} title="Streak" />
+                </div>
+                <div className={styles.score}>
+                <Score score={localStorage.getItem("highscore")} title="Best streak" />
+                </div>
+            </div>
+            
+            </animated.div>
             {loadingScore?(
-                <>{showPercentile?(<div style={{color:'white'}}>Yesterday, your score was {localStorage.getItem("yesterdayScore")} and your percentile score was {percentile}</div>):(<div style={{color:"white"}}>You did not play yesterday</div>)}</>
+                <>{showPercentile?(
+                <div>
+                    <animated.div style={animProps} className={styles.gameOver}>
+                    <h1 style={{color:"white", display:"block"}}>Yesterday's score</h1>
+                    <div className={styles.scoresWrapper}>
+                
+                        <div className={styles.score}>
+                        <Score score={localStorage.getItem("yesterdayScore")} title="Streak" />
+                        </div>
+                        <div className={styles.score}>
+                        <Score score= {percentile} title="Percentile score" />
+                        </div>
+                    </div>
+                    </animated.div>
+                </div>
+                ):(<div style={{color:"white"}}>You did not play yesterday</div>)}</>
             ):(<div style={{color:"white"}}>Loading yesterdays's score.</div>)}
 			<CanvasJSChart options = {options}
 				/* onRef={ref => this.chart = ref} */
