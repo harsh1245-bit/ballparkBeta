@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useLayoutEffect } from "react";
+import {ProgressBar} from "react-progressbar-fancy";
 import { DragDropContext} from "react-beautiful-dnd";
 import useAutoMoveSensor from "../lib/useAutoMoveSensor";
 import supabase from "./config/supabaseClient"
@@ -182,6 +183,7 @@ export default function Board(props) {
       onDragStart={onDragStart}
       sensors={[useAutoMoveSensor.bind(null, state)]}
     >
+      <ProgressBar score={((state.played.length-1)/20)*100} progressColor={'blue'} label={"Progress for today"} darkTheme={true} />
       <div className={styles.wrapper}>
         <div className={styles.top}>
           
