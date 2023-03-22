@@ -80,7 +80,7 @@ export default function Canva() {
         fetchScores();
         
         // eslint-disable-next-line
-    },[])
+    },[histData,loadingScore,percentile])
 	
     const options = {
         animationEnabled: true,

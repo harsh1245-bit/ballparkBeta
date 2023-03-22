@@ -20,6 +20,7 @@ export default function Game() {
   var mm = String(today.getMonth()+1).padStart(2,'0');
   var yyyy = today.getFullYear();
   today = mm+'/'+dd+'/'+yyyy;
+  
   const [state, setState] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [started, setStarted] = useState(false);
@@ -88,9 +89,10 @@ export default function Game() {
 
   useEffect(() => {
     const createStateAsync = async() => {
-      if (items !== null) {
+      if (questions !== null) {
         setState(await createState(questions));
         setLoaded(true);
+        //setCount(1);
         //console.log("working")
       }
     };
@@ -100,8 +102,9 @@ export default function Game() {
     
     
     
-  }, [questions,items]);
-  const startGame = ()=>{
+  }, [questions]);
+  const startGame = async ()=>{
+    
     const arr = []
     let x = 0;
     const countryArr = Array.from(countries);
@@ -127,12 +130,27 @@ export default function Game() {
           x=x+1;
         }
       }
-      setQuestions(arr);
+      //setQuestions(arr);
 
-      pickRandomques(arr,today);
+      //pickRandomques(arr,today);
+    const {data,error} = await supabase.from("dailyQues").select('*').eq("id",today);
+    console.log("data",data,error)
+    if(data.length===0){
+      setRandomques(arr,today)
+    }
+    else{
+      //setLoaded(false);
+      //console.log("false set hua");
+      const x = data[0].ques;
+      setQuestions(x);
+      //setLoaded(true);
+      //console.log("true hua")
+    }
       console.log(questions.length);
     }
+    
     setStarted(true);
+
   }
   const setRandomques=async(arr,today)=>{
     const copiedArray = arr.slice();
@@ -142,7 +160,7 @@ export default function Game() {
     console.log(data,error);
     setQuestions(data);
   }
-  
+  // eslint-disable-next-line
   const pickRandomques=async(arr,today)=>{
     const {data,error} = await supabase.from("dailyQues").select('*').eq("id",today);
     console.log("data",data,error)
@@ -150,9 +168,12 @@ export default function Game() {
       setRandomques(arr,today)
     }
     else{
-      setLoaded(false);
-      setQuestions(data[0].ques);
-      setLoaded(true);
+      //setLoaded(false);
+      //console.log("false set hua");
+      const x = data[0].ques;
+      setQuestions(x);
+      //setLoaded(true);
+      //console.log("true hua")
     }
   }
   const resetGame = useCallback(() => {
