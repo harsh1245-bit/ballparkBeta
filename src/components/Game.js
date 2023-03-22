@@ -130,17 +130,27 @@ export default function Game() {
           x=x+1;
         }
       }
-      //setQuestions(arr);
-
+      
+      setQuestions(arr);
+      console.log(arr.length);
       //pickRandomques(arr,today);
+    // eslint-disable-next-line
     const {data,error} = await supabase.from("dailyQues").select('*').eq("id",today);
-    console.log("data",data,error)
+    //console.log("data",data,error)
     if(data.length===0){
-      setRandomques(arr,today)
+      if(arr.length>21){
+      const copiedArray = arr.slice();
+      const shuffled = copiedArray.sort(()=>0.5-Math.random());
+      console.log(shuffled.slice(0,21),"shuffled");
+      const {data,error} = await supabase.from('dailyQues').insert({"id":today,"ques":shuffled.slice(0,21)}).select()
+      console.log(data,error);
+      }
+      //pickRandomques(arr,today);
     }
     else{
       //setLoaded(false);
       //console.log("false set hua");
+      
       const x = data[0].ques;
       setQuestions(x);
       //setLoaded(true);
@@ -152,12 +162,14 @@ export default function Game() {
     setStarted(true);
 
   }
+  
   const setRandomques=async(arr,today)=>{
     const copiedArray = arr.slice();
     const shuffled = copiedArray.sort(()=>0.5-Math.random());
-
+    console.log(shuffled.slice(0,21),"shuffled");
     const {data,error} = await supabase.from('dailyQues').insert({"id":today,"ques":shuffled.slice(0,21)}).select()
     console.log(data,error);
+    //return data;
     setQuestions(data);
   }
   // eslint-disable-next-line
@@ -234,6 +246,7 @@ export default function Game() {
       <>
       <Instructions highscore={highscore} start={startGame} />
       <DropDown countries={countries} updateCountries={updateCountries}/>
+      
       </>
     );
   }
