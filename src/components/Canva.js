@@ -49,6 +49,7 @@ export default function Canva() {
             }
             if(localStorage.getItem("playedYesterday")==="false"){
                 setShowPercentile(false);
+                //console.log(percentil([12],12));
                 //console.log("false working");
             }
             if(localStorage.getItem("playedYesterday")==="true"){
@@ -57,7 +58,7 @@ export default function Canva() {
             }
         }
         const percentil = (arr,val)=>{
-            console.log(val,arr)
+            //console.log(val,arr)
             let count = 0;
             var x = []
             for(let i=0; i<arr.length; i++){
@@ -65,15 +66,16 @@ export default function Canva() {
                     x.push(i);
                 }
             }
-            x.forEach(v=>{
-                if(v<val){
-                    count++;
-                } else if(v===val){
+            //console.log("X",x);
+            for(let j=0; j<x.length; j++){
+                if(x[j]<=val){
                     count++;
                 }
-            });
-            setPercentile((100*count/x.length).toFixed(2));
-            console.log(percentile)
+            }
+            //console.log(count);
+            setPercentile((100*(count/x.length)).toFixed(2));
+            //console.log(percentile)
+            
 
             
         }
