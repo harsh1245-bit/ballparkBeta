@@ -52,7 +52,7 @@ export default function GameOver(props) {
         </div>
       </div>
       <div className={styles.buttons}>
-        <Button onClick={resetGame} text="Play again" />
+        <Button onClick={resetGame} text="Statistics" />
         <Button onClick={share} text={shareText} minimal />
       </div>
     </animated.div>

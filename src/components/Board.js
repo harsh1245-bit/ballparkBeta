@@ -183,7 +183,7 @@ export default function Board(props) {
       onDragStart={onDragStart}
       sensors={[useAutoMoveSensor.bind(null, state)]}
     >
-      <ProgressBar score={((state.played.length-1)/20)*100} progressColor={'blue'} label={"Progress for today"} darkTheme={true} />
+      <ProgressBar score={(((state.played.length-1)/20)*100)} progressColor={'blue'} label={"Progress for today"} darkTheme={true} />
       <div className={styles.wrapper}>
         <div className={styles.top}>
           

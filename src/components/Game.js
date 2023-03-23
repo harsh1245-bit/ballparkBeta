@@ -104,7 +104,7 @@ export default function Game() {
     
   }, [questions]);
   const startGame = async ()=>{
-    
+    document.getElementById("load").style.display = "block";
     const arr = []
     let x = 0;
     const countryArr = Array.from(countries);
@@ -190,10 +190,11 @@ export default function Game() {
   }
   const resetGame = useCallback(() => {
     const resetGameAsync = async () => {
+      window.location.reload();
       if (items !== null) {
         setState(await createState(questions));
       }
-      window.location.reload();
+      //window.location.reload();
     };
 
     resetGameAsync();
@@ -245,8 +246,9 @@ export default function Game() {
     return (
       <>
       <Instructions highscore={highscore} start={startGame} />
-      <DropDown countries={countries} updateCountries={updateCountries}/>
+      <div id="dropdown" style={{display:"none"}}><DropDown countries={countries} updateCountries={updateCountries}/></div>
       
+      <div id="load" style={{display:"none", color:"white", marginTop:"10px"}}>Loading cards...</div>
       </>
     );
   }

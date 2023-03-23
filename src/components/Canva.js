@@ -45,15 +45,15 @@ export default function Canva() {
             //console.log("data",histData)
             if(localStorage.getItem("playedYesterday")==="true"){
                 setShowPercentile(true);
-                console.log("true working")
+                //console.log("true working")
             }
             if(localStorage.getItem("playedYesterday")==="false"){
                 setShowPercentile(false);
-                console.log("false working");
+                //console.log("false working");
             }
             if(localStorage.getItem("playedYesterday")==="true"){
                 percentil(x,lastScore);
-                console.log("working");
+                //console.log("working");
             }
         }
         const percentil = (arr,val)=>{
@@ -69,7 +69,7 @@ export default function Canva() {
                 if(v<val){
                     count++;
                 } else if(v===val){
-                    count+=0.5;
+                    count++;
                 }
             });
             setPercentile((100*count/x.length).toFixed(2));
